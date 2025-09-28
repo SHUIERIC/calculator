@@ -22,17 +22,15 @@ function operate (arr) {
     switch (operator) {
         case "+":
             return add(Number(numOne), Number(numTwo));
-            break;
         case "-": 
-            return subtract (Number(numOne), Number(numTwo));
-            break;
+            return subtract (Number(numOne), Number(numTwo))
         case "x": 
-            return multiply (Number(numOne), Number(numTwo));
-            break;
+            return multiply (Number(numOne), Number(numTwo))
         case "÷": 
-            return divide (Number(numOne), Number(numTwo));
-            break;
-    }
+            return (Number(numTwo) === 0)    
+                ? (clearBtn.click(), alert ("You can not divide by zero!"))
+                : divide (Number(numOne), Number(numTwo))
+}
 }
 
 //Button input 
@@ -55,9 +53,14 @@ const equalBtn = document.querySelector (".equal")
 equalBtn.addEventListener("click", ()=> {
     const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);;
     console.log("tokens:", arr);
+    
+    if (arr.length === 3) {
     const result = operate(arr);
     const roundedResult = Number(result.toFixed(1))
-    display.textContent = roundedResult;    
+    display.textContent = roundedResult;
+    } else {
+        display.textContent = "ERROR"
+    }
 }
 )
 
@@ -80,6 +83,15 @@ opButttons.addEventListener ("click", (e) => {
         displayValue = `${roundedResult}${arr[3]}`
     }
 
+    display.textContent=displayValue
+}
+)
+
+// Clear button 
+
+const clearBtn = document.querySelector(".clear")
+clearBtn.addEventListener ("click", (e)=> {
+    displayValue=""
     display.textContent=displayValue
 }
 )
