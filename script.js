@@ -37,7 +37,6 @@ function operate (arr) {
 let displayValue = ""
 
 const numButtons = document.querySelectorAll (".key")
-const opButttons = document.querySelector (".operator")
 const display = document.querySelector(".display")
 
 numButtons.forEach((button) =>{
@@ -66,8 +65,8 @@ equalBtn.addEventListener("click", ()=> {
 )
 
 // Operator button logic
-
-opButttons.addEventListener ("click", (e) => {
+const opButtons = document.querySelector (".operator")
+opButtons.addEventListener ("click", (e) => {
     const value = e.target.textContent;
     displayValue += value;
     display.textContent = displayValue
@@ -75,21 +74,29 @@ opButttons.addEventListener ("click", (e) => {
     const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);
     console.log("tokens:", arr);
 
-    if (arr.length == 2) {
-        return displayValue = arr.join("")
+    if (isNaN(Number(arr[0]))) {
+        displayValue = "";
+        display.textContent = displayValue;
+    } else if (arr.length > 2 && isNaN(Number(arr[1])) && isNaN(Number(arr[2]))) {
+        arr[arr.length - 2] = arr[arr.length - 1];
+        arr.splice(-1,1)
+        console.log("++", arr)
+        displayValue = arr.join("")
     } else if (arr.length == 4) {
         const interArr = arr.slice(0,3);
         let result = operate (interArr);
         const roundedResult = Number(result.toFixed(1))
         displayValue = `${roundedResult}${arr[3]}`
+    } 
+        display.textContent=displayValue
     }
-
-    display.textContent=displayValue
-}
 )
 
-// Clear button 
 
+   //(arr.length == 2) {
+       // return displayValue = arr.join("")
+
+// Clear button logic
 const clearBtn = document.querySelector(".clear")
 clearBtn.addEventListener ("click", (e)=> {
     displayValue=""
@@ -101,36 +108,6 @@ clearBtn.addEventListener ("click", (e)=> {
 
 
     
-
-
-
-/*function splitNum (input) {
-    let numOne;
-    let operator;
-    let numTwo;
-
-    if (input.includes ("+")) {
-        [numOne, numTwo] = input.split("+");
-        operator = "+"
-    } else if (input.includes ("-")) {
-        [numOne, numTwo] = input.split("-");
-        operator = "-"
-    } else if (input.includes ("x")) {
-        [numOne, numTwo] = input.split("x");
-        operator = "x"
-    } else if (input.includes ("/")) {
-        [numOne, numTwo] = input.split("/");
-        operator = "/"
-} 
-
-    numOne= parseInt (numOne);
-    numTwo= parseInt (numTwo);
-
-    return result = {numOne, numTwo, operator}
-}
-
-*/
-
 
 
 
