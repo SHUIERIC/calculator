@@ -58,13 +58,14 @@ equalBtn.addEventListener("click", ()=> {
     const result = operate(arr);
     const roundedResult = Number(result.toFixed(1))
     display.textContent = roundedResult;
+    displayValue = ""
     } else {
         display.textContent = "ERROR"
     }
 }
 )
 
-// Sequential calculation when 2 operator is clicked
+// Operator button logic
 
 opButttons.addEventListener ("click", (e) => {
     const value = e.target.textContent;
@@ -76,7 +77,7 @@ opButttons.addEventListener ("click", (e) => {
 
     if (arr.length == 2) {
         return displayValue = arr.join("")
-    } else if (arr.length ==4) {
+    } else if (arr.length == 4) {
         const interArr = arr.slice(0,3);
         let result = operate (interArr);
         const roundedResult = Number(result.toFixed(1))
