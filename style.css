@@ -25,7 +25,14 @@ body {
 
 .specialBtn {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+
+.equal,
+.clear{
+    flex: 1;       
 }
 
 button {
