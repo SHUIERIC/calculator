@@ -8,19 +8,33 @@ body {
 
 .keypads {
     display: flex;
+    height: 300px;
 }
 
 .digits {
     display: flex;
     flex-wrap: wrap;
-    flex: 2;
+    flex: 5;
 }
 
 .operator {
     display: flex;
+    flex-wrap: wrap;
     flex: 1;
 }
 
-.key {
+.specialBtn {
+    display: flex;
+    align-items: center;
+}
+
+button {
     width: 100px;
+}
+
+.display {
+    font-size: large;
+    font-weight: bolder;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
