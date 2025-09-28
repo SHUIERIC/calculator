@@ -102,28 +102,6 @@ equalBtn.addEventListener("click", ()=> {
 }
 )
 
-let firstNum = undefined;
-
-const operatorBtn = document.querySelectorAll (".operator")
-operatorBtn.forEach ( (btn) =>
-    btn.addEventListener ("click", (e) => {
-        if (firstNum === undefined) {
-            firstNum = parseInt (displayValue)
-            currentOperator = e.target.textContent
-            display.textContent = `${firstNum}${currentOperator}`;
-            displayValue = ""
-        } else {
-            let secondNum = parseInt(displayValue)
-            const intermediateResult = operate({numOne: firstNum, numTwo: secondNum, operator: currentOperator}) 
-
-            firstNum = intermediateResult;
-            currentOperator = e.target.textContent;
-            display.textContent = `${intermediateResult}${currentOperator}`
-            displayValue = ""
-        }
-        }
-    )
-)
 
 
 
