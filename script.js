@@ -16,6 +16,26 @@ function divide (a,b) {
     return a / b
 }
 
+function operate (arr) {
+    const [numOne, operator, numTwo] = arr
+
+    switch (operator) {
+        case "+":
+            return add(Number(numOne), Number(numTwo));
+            break;
+        case "-": 
+            return subtract (Number(numOne), Number(numTwo));
+            break;
+        case "x": 
+            return multiply (Number(numOne), Number(numTwo));
+            break;
+        case "÷": 
+            return divide (Number(numOne), Number(numTwo));
+            break;
+    }
+}
+
+//Button input 
 let displayValue = ""
 
 const numButtons = document.querySelectorAll (".key")
@@ -30,12 +50,25 @@ numButtons.forEach((button) =>{
     })
 }) 
 
+// Equal button logic 
+const equalBtn = document.querySelector (".equal")
+equalBtn.addEventListener("click", ()=> {
+    const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);;
+    console.log("tokens:", arr);
+    const result = operate(arr);
+    const roundedResult = Number(result.toFixed(1))
+    display.textContent = roundedResult;    
+}
+)
+
+// Sequential calculation when 2 operator is clicked
+
 opButttons.addEventListener ("click", (e) => {
     const value = e.target.textContent;
     displayValue += value;
     display.textContent = displayValue
 
-    const arr = displayValue.split(/([\+\-\x\/])/).filter(Boolean);;
+    const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);
     console.log("tokens:", arr);
 
     if (arr.length == 2) {
@@ -43,27 +76,18 @@ opButttons.addEventListener ("click", (e) => {
     } else if (arr.length ==4) {
         const interArr = arr.slice(0,3);
         let result = operate (interArr);
-        displayValue = `${result}${arr[3]}`
+        const roundedResult = Number(result.toFixed(1))
+        displayValue = `${roundedResult}${arr[3]}`
     }
 
     display.textContent=displayValue
 }
 )
 
-const equalBtn = document.querySelector (".equal")
-equalBtn.addEventListener("click", ()=> {
-    const finalResult = operate(displayValue.split(/([\+\-\x\/])/).filter(Boolean));
-    display.textContent = finalResult;    
-}
-)
+
 
 
     
-
-// User Input Variable 
-
-// displayValue="20+3"
-// let array = displayValue.split(/([\+\-\x\/])/);
 
 
 
@@ -94,23 +118,6 @@ equalBtn.addEventListener("click", ()=> {
 
 */
 
-function operate (arr) {
-    const [numOne, operator, numTwo] = arr
 
-    switch (operator) {
-        case "+":
-            return add(Number(numOne), Number(numTwo));
-            break;
-        case "-": 
-            return subtract (Number(numOne), Number(numTwo));
-            break;
-        case "x": 
-            return multiply (Number(numOne), Number(numTwo));
-            break;
-        case "/": 
-            return divide (Number(numOne), Number(numTwo));
-            break;
-    }
-}
 
 
