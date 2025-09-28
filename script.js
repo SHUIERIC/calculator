@@ -16,43 +16,58 @@ function divide (a,b) {
     return a / b
 }
 
-
-/* function operate (numOne, numTwo, operator) {
-    switch (operator) {
-        case add:
-            return add (numOne, numTwo);
-            break;
-        case subtract: 
-            return subtract (numOne, numTwo);
-            break;
-        case multiply: 
-            return multiply (numOne, numTwo);
-            break;
-        case divide: 
-            return divide (numOne, numTwo);
-            break;
-    }
-}
-*/
-
-//Button
-
 let displayValue = ""
 
-const buttons = document.querySelectorAll (".key")
+const numButtons = document.querySelectorAll (".key")
+const opButttons = document.querySelector (".operator")
 const display = document.querySelector(".display")
 
-buttons.forEach((button) =>{
+numButtons.forEach((button) =>{
     button.addEventListener ("click", (e)=>{
     const value = e.target.textContent;
     displayValue += value;
     display.textContent = displayValue
     })
 }) 
+
+opButttons.addEventListener ("click", (e) => {
+    const value = e.target.textContent;
+    displayValue += value;
+    display.textContent = displayValue
+
+    const arr = displayValue.split(/([\+\-\x\/])/).filter(Boolean);;
+    console.log("tokens:", arr);
+
+    if (arr.length == 2) {
+        return displayValue = arr.join("")
+    } else if (arr.length ==4) {
+        const interArr = arr.slice(0,3);
+        let result = operate (interArr);
+        displayValue = `${result}${arr[3]}`
+    }
+
+    display.textContent=displayValue
+}
+)
+
+const equalBtn = document.querySelector (".equal")
+equalBtn.addEventListener("click", ()=> {
+    const finalResult = operate(displayValue.split(/([\+\-\x\/])/).filter(Boolean));
+    display.textContent = finalResult;    
+}
+)
+
+
     
 
 // User Input Variable 
-function splitNum (input) {
+
+// displayValue="20+3"
+// let array = displayValue.split(/([\+\-\x\/])/);
+
+
+
+/*function splitNum (input) {
     let numOne;
     let operator;
     let numTwo;
@@ -77,31 +92,25 @@ function splitNum (input) {
     return result = {numOne, numTwo, operator}
 }
 
-function operate ( {numOne, numTwo, operator} ) {
+*/
+
+function operate (arr) {
+    const [numOne, operator, numTwo] = arr
 
     switch (operator) {
         case "+":
-            return add (numOne, numTwo);
+            return add(Number(numOne), Number(numTwo));
             break;
         case "-": 
-            return subtract (numOne, numTwo);
+            return subtract (Number(numOne), Number(numTwo));
             break;
         case "x": 
-            return multiply (numOne, numTwo);
+            return multiply (Number(numOne), Number(numTwo));
             break;
         case "/": 
-            return divide (numOne, numTwo);
+            return divide (Number(numOne), Number(numTwo));
             break;
     }
 }
-
-const equalBtn = document.querySelector (".equal")
-equalBtn.addEventListener("click", ()=> {
-    const finalResult = operate(splitNum(displayValue));
-    display.textContent = finalResult;    
-}
-)
-
-
 
 
