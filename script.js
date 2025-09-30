@@ -74,21 +74,21 @@ backBtn.addEventListener ("click", () =>{
 
 // Equal button logic 
 const equalBtn = document.querySelector (".equal")
+
 equalBtn.addEventListener("click", ()=> {
     const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);;
     console.log("equal:", arr);
     
     if (arr.length === 3) {
     const result = operate(arr);
-    const roundedResult = Number(result.toFixed(1))
+    const roundedResult = Number(result.toFixed(1));
     display.textContent = roundedResult;
-    displayValue = ""
+    displayValue = "";
     } else {
         display.textContent = "ERROR"
     }
 }
 )
-
 
 // Operator button logic
 const opButtons = document.querySelector (".operator")
@@ -125,7 +125,42 @@ clearBtn.addEventListener ("click", (e)=> {
 }
 )
 
+// Keyboard binding (excluding numPad)
+const opBtnBind = document.querySelectorAll (".operator button")
+window.addEventListener("keydown", (e) => {
+    if (e.defaultPrevented) return;
 
+    switch (e.code) {
+        case "Digit0": displayValue += "0"; break;
+        case "Digit1": displayValue += "1"; break;
+        case "Digit2": displayValue += "2"; break;
+        case "Digit3": displayValue += "3"; break;
+        case "Digit4": displayValue += "4"; break;
+        case "Digit5": displayValue += "5"; break;
+        case "Digit6": displayValue += "6"; break;
+        case "Digit7": displayValue += "7"; break;
+        case "Digit8": displayValue += "8"; break;
+        case "Digit9": displayValue += "9"; break;
+        case "Backspace": backBtn.click(); break;
+        case "Period": decimalBtn.click(); break;
+        case "KeyC":clearBtn.click();break;
+    }
+    
+    opBtnBind.forEach((button) => {
+    if (e.key === button.dataset.key) {
+        button.click()
+    }
+    })
+
+    if (e.key === "=" && !e.shiftKey) {
+        equalBtn.click();
+    }
+
+    if (displayValue !== "") {
+        display.textContent = displayValue;
+    }
+}
+);
 
 
     
