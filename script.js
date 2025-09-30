@@ -33,7 +33,7 @@ function operate (arr) {
 }
 }
 
-//Button input 
+//Number button input and display
 let displayValue = ""
 
 const numButtons = document.querySelectorAll (".key")
@@ -47,11 +47,36 @@ numButtons.forEach((button) =>{
     })
 }) 
 
+// Decimal button logic 
+const decimalBtn = document.querySelector(".decimal")
+
+decimalBtn.addEventListener ("click", (e) => {
+    const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);
+    console.log("decimal:", arr);
+    if (arr[0] &&!arr[0].includes(".")) {
+        arr[0] += "."
+    } if (arr[2] && !arr[2].includes(".")) {
+        arr[2] += "."  
+    }
+    displayValue = arr.join("")
+    display.textContent = displayValue
+} 
+)
+
+// Backspace button logic
+const backBtn = document.querySelector(".back")
+
+backBtn.addEventListener ("click", () =>{
+    displayValue = displayValue.slice(0, -1);
+    display.textContent = displayValue
+}
+)
+
 // Equal button logic 
 const equalBtn = document.querySelector (".equal")
 equalBtn.addEventListener("click", ()=> {
     const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);;
-    console.log("tokens:", arr);
+    console.log("equal:", arr);
     
     if (arr.length === 3) {
     const result = operate(arr);
@@ -64,6 +89,7 @@ equalBtn.addEventListener("click", ()=> {
 }
 )
 
+
 // Operator button logic
 const opButtons = document.querySelector (".operator")
 opButtons.addEventListener ("click", (e) => {
@@ -72,11 +98,10 @@ opButtons.addEventListener ("click", (e) => {
     display.textContent = displayValue
 
     const arr = displayValue.split(/([\+\-\x\÷])/).filter(Boolean);
-    console.log("tokens:", arr);
+    console.log("operator:", arr);
 
     if (isNaN(Number(arr[0]))) {
         displayValue = "";
-        display.textContent = displayValue;
     } else if (arr.length > 2 && isNaN(Number(arr[1])) && isNaN(Number(arr[2]))) {
         arr[arr.length - 2] = arr[arr.length - 1];
         arr.splice(-1,1)
@@ -91,10 +116,6 @@ opButtons.addEventListener ("click", (e) => {
         display.textContent=displayValue
     }
 )
-
-
-   //(arr.length == 2) {
-       // return displayValue = arr.join("")
 
 // Clear button logic
 const clearBtn = document.querySelector(".clear")
